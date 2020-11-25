@@ -1,0 +1,13 @@
+{
+	//Blocks
+	"block.tmod.test_block": "Test Block",
+	"block.tmod.fluidtank_block": "Fluid Tank",
+	
+	//Items
+	"item.tmod.testitem": "Test Item",
+	
+	//Tabs
+	"itemGroup.testTab": "TestMod"
+	
+	//Fluids
+}
