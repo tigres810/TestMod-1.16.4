@@ -69,10 +69,10 @@ public class RenderFluidTankBlock extends TileEntityRenderer<TileFluidTankBlock>
         float b = (color & 0xFF) / 255.0F;
 		
 		matrixStackIn.push();
-        matrixStackIn.translate(.5, .5, .5);
+        matrixStackIn.translate(.5, 0, .5);
         matrixStackIn.rotate(rotation);
-        matrixStackIn.scale(scale, scale, scale);
-        matrixStackIn.translate(-.5, -.5, -.5);
+        matrixStackIn.scale(.6f, scale, .6f);
+        matrixStackIn.translate(-.5, scale, -.5);
 
         add(builder, matrixStackIn, 0 + 1, 0 + 1, .5f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
         add(builder, matrixStackIn, 1 - 1, 0 + 1, .5f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);

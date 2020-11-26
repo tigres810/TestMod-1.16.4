@@ -26,6 +26,13 @@ public class TileFluidTankBlock extends TileEntity {
         public boolean isFluidValid(FluidStack stack) {
             return stack.getFluid() == Fluids.WATER;
         }
+        
+        @Override
+        protected void onContentsChanged() {
+        	BlockState state = world.getBlockState(pos);
+            world.notifyBlockUpdate(pos, state, state, 3);
+            markDirty();
+        };
     };
     
     private final LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> tank);
