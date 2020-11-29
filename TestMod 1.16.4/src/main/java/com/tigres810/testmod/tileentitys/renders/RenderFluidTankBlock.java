@@ -83,6 +83,18 @@ public class RenderFluidTankBlock extends TileEntityRenderer<TileFluidTankBlock>
         add(builder, matrixStackIn, 1 - 1, 1 - 1, .5f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
         add(builder, matrixStackIn, 1 - 1, 0 + 1, .5f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
         add(builder, matrixStackIn, 0 + 1, 0 + 1, .5f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
+        matrixStackIn.translate(-1f, 0, 0);
+        add(builder, matrixStackIn, 0 + 1, 0 + 1, .5f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - 1, 0 + 1, .5f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - 1, 1 - 1, .5f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + 1, 1 - 1, .5f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
+
+        add(builder, matrixStackIn, 0 + 1, 1 - 1, .5f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - 1, 1 - 1, .5f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - 1, 0 + 1, .5f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + 1, 0 + 1, .5f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
 		matrixStackIn.pop();
 	}
 

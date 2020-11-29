@@ -10,7 +10,6 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -173,6 +172,7 @@ public class FluidTankBlock extends Block {
                     IFluidHandler fluidHandler = fluidHandlerCap.orElseThrow(IllegalStateException::new);
 
                     if (heldItem.getItem() == Items.GLASS_BOTTLE) {
+                    	System.out.print("1 " + heldItem.getItem());
                         if (fluidHandler.drain(333, IFluidHandler.FluidAction.SIMULATE).getAmount() == 333) {
                             fluidHandler.drain(333, IFluidHandler.FluidAction.EXECUTE);
 
@@ -188,9 +188,10 @@ public class FluidTankBlock extends Block {
                             return ActionResultType.SUCCESS;
                         }
                     } else if (heldItem.getItem() == Items.POTION && heldItem.getTag() != null) {
+                    	System.out.print("2 " + heldItem.getItem() + " " + heldItem.getTag().getString("Potion").equals("minecraft:water"));
                         if (heldItem.getTag().getString("Potion").equals("minecraft:water")) {
-                            if (fluidHandler.fill(new FluidStack(Fluids.WATER, 550), IFluidHandler.FluidAction.SIMULATE) == 550) {
-                                fluidHandler.fill(new FluidStack(Fluids.WATER, 550), IFluidHandler.FluidAction.EXECUTE);
+                            if (fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 550), IFluidHandler.FluidAction.SIMULATE) == 550) {
+                                fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 550), IFluidHandler.FluidAction.EXECUTE);
 
                                 player.world.playSound(null, player.getPosition(), SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.PLAYERS, 1f, 1f);
 
@@ -205,7 +206,15 @@ public class FluidTankBlock extends Block {
                             }
                         }
                     } else {
-
+                    	if(heldItem.getItem() == Items.BUCKET) {
+                    		if(!fluidHandler.drain(550, IFluidHandler.FluidAction.SIMULATE).isEmpty()) {
+                    			player.world.playSound(null, player.getPosition(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 1f, 1f);
+                    		}
+                    	} else if(heldItem.getItem() == RegistryHandler.FLUX_FLUID_BUCKET.get()) {
+                    		if(fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 550), IFluidHandler.FluidAction.SIMULATE) == 550) {
+                    			player.world.playSound(null, player.getPosition(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 1f, 1f);
+                    		}
+                    	}
                         return (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
                     }
                 }

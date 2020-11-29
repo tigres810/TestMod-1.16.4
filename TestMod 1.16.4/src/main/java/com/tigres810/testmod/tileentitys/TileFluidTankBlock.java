@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 import com.tigres810.testmod.util.RegistryHandler;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -24,7 +23,7 @@ public class TileFluidTankBlock extends TileEntity {
 	protected FluidTank tank = new FluidTank(FluidAttributes.BUCKET_VOLUME * 6) {
         @Override
         public boolean isFluidValid(FluidStack stack) {
-            return stack.getFluid() == Fluids.WATER;
+            return stack.getFluid() == RegistryHandler.FLUX_FLUID.get();
         }
         
         @Override
