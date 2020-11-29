@@ -1,4 +1,7 @@
 {
+	//Fluids
+	"item.tmod.flux_fluid_bucket": "Cubo de flux",
+	
 	//Blocks
 	"block.tmod.test_block": "Bloque de prueba",
 	"block.tmod.fluidtank_block": "Tanque de fluidos",
@@ -8,6 +11,4 @@
 	
 	//Tabs
 	"itemGroup.testTab": "TestMod"
-	
-	//Fluids
 }
