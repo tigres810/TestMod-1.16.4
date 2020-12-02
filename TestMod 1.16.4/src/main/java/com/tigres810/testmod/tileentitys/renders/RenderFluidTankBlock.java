@@ -71,7 +71,7 @@ public class RenderFluidTankBlock extends TileEntityRenderer<TileFluidTankBlock>
 		matrixStackIn.push();
         matrixStackIn.translate(.5, 0, .5);
         matrixStackIn.rotate(rotation);
-        matrixStackIn.scale(.6f, scale, .6f);
+        if(scale == 0.330f) { matrixStackIn.translate(0, -.1, 0); matrixStackIn.scale(.6f, scale + 0.110f, .6f);  } else if(scale == 0.440f) { matrixStackIn.translate(0, -.2, 0); matrixStackIn.scale(.6f, scale + 0.110f, .6f); } else if(scale == 0.550f) { matrixStackIn.translate(0, -.4, 0); matrixStackIn.scale(.6f, scale + 0.210f, .6f); } else { matrixStackIn.scale(.6f, scale, .6f); }
         matrixStackIn.translate(-.5, scale, -.5);
 
         add(builder, matrixStackIn, 0 + 1, 0 + 1, .5f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);

@@ -20,7 +20,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 public class TileFluidTankBlock extends TileEntity {
-	protected FluidTank tank = new FluidTank(FluidAttributes.BUCKET_VOLUME * 6) {
+	protected FluidTank tank = new FluidTank(FluidAttributes.BUCKET_VOLUME * 5) {
         @Override
         public boolean isFluidValid(FluidStack stack) {
             return stack.getFluid() == RegistryHandler.FLUX_FLUID.get();
