@@ -2,6 +2,9 @@ package com.tigres810.testmod.blocks;
 
 import java.util.stream.Stream;
 
+import javax.annotation.Nullable;
+
+import com.tigres810.testmod.tileentitys.TileFluidTankBlock;
 import com.tigres810.testmod.util.RegistryHandler;
 
 import net.minecraft.block.Block;
@@ -9,6 +12,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -38,6 +42,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 public class FluidTankBlock extends Block {
 	
@@ -138,6 +143,8 @@ public class FluidTankBlock extends Block {
 		Block.makeCuboidShape(5.5, 15.5, 5.5, 6, 16, 6),Block.makeCuboidShape(6.5, 15.5, 9, 7, 16, 9.5),
 		Block.makeCuboidShape(6, 15.5, 9.5, 6.5, 16, 10),Block.makeCuboidShape(5.5, 15.5, 10, 6, 16, 10.5)
 		).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+	
+	public static int fluidamount;
 
 	public FluidTankBlock() {
 		super(Block.Properties.create(Material.IRON)
@@ -147,6 +154,29 @@ public class FluidTankBlock extends Block {
 				.harvestTool(ToolType.PICKAXE)
 				.setRequiresTool()
 		);
+	}
+	
+	@Override
+	public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+		
+		if (tileEntity instanceof TileFluidTankBlock) {
+            FluidStack tankFluidStack = ((TileFluidTankBlock) tileEntity).getTank().getFluid();
+            fluidamount = tankFluidStack.getAmount();
+        }
+		super.onBlockHarvested(worldIn, pos, state, player);
+	}
+	
+	@Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		if (!worldIn.isRemote) {
+			TileEntity te = worldIn.getTileEntity(pos);
+
+            if (te instanceof TileFluidTankBlock) {
+                FluidTank tankFluidTank = ((TileFluidTankBlock) te).getTank();
+                tankFluidTank.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), fluidamount), IFluidHandler.FluidAction.EXECUTE);
+            }
+		}
 	}
 	
 	@Override
@@ -188,7 +218,6 @@ public class FluidTankBlock extends Block {
                             return ActionResultType.SUCCESS;
                         }
                     } else if (heldItem.getItem() == Items.POTION && heldItem.getTag() != null) {
-                    	System.out.print("2 " + heldItem.getItem() + " " + heldItem.getTag().getString("Potion").equals("minecraft:water"));
                         if (heldItem.getTag().getString("Potion").equals("minecraft:water")) {
                             if (fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 550), IFluidHandler.FluidAction.SIMULATE) == 550) {
                                 fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 550), IFluidHandler.FluidAction.EXECUTE);
