@@ -73,28 +73,64 @@ public class RenderFluidTankBlock extends TileEntityRenderer<TileFluidTankBlock>
         matrixStackIn.rotate(rotation);
         if(scale == 0.330f) { matrixStackIn.translate(0, -.1, 0); matrixStackIn.scale(.6f, scale + 0.110f, .6f);  } else if(scale == 0.440f) { matrixStackIn.translate(0, -.2, 0); matrixStackIn.scale(.6f, scale + 0.110f, .6f); } else if(scale == 0.550f) { matrixStackIn.translate(0, -.4, 0); matrixStackIn.scale(.6f, scale + 0.210f, .6f); } else { matrixStackIn.scale(.6f, scale, .6f); }
         matrixStackIn.translate(-.5, scale, -.5);
+        
+        // Top Face
+        add(builder, matrixStackIn, 1 - .8f, 1, .8f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 1, .8f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 1, .2f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 1, .2f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        
+        // Bottom Face of Top
+        add(builder, matrixStackIn, 0 + .8f, 1, .8f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 1, .8f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 1, .2f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 1, .2f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        
+        // Front Faces [NORTH - SOUTH]
+        add(builder, matrixStackIn, 0 + .8f, 0 + 1, .8f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 0 + 1, .8f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 1 - 1, .8f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 1 - 1, .8f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
+        
+        add(builder, matrixStackIn, 0 + .8f, 1 - 1, .2f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 1 - 1, .2f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 0 + 1, .2f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 0 + 1, .2f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        
+        // Back Faces
+        add(builder, matrixStackIn, 0 + .8f, 0 + 1, .2f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 0 + 1, .2f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 1 - 1, .2f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 1 - 1, .2f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
 
-        add(builder, matrixStackIn, 0 + 1, 0 + 1, .5f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
-        add(builder, matrixStackIn, 1 - 1, 0 + 1, .5f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
-        add(builder, matrixStackIn, 1 - 1, 1 - 1, .5f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
-        add(builder, matrixStackIn, 0 + 1, 1 - 1, .5f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
-
-        add(builder, matrixStackIn, 0 + 1, 1 - 1, .5f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
-        add(builder, matrixStackIn, 1 - 1, 1 - 1, .5f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
-        add(builder, matrixStackIn, 1 - 1, 0 + 1, .5f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
-        add(builder, matrixStackIn, 0 + 1, 0 + 1, .5f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 1 - 1, .8f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 1 - 1, .8f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 0 + 1, .8f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 0 + 1, .8f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
         
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
         matrixStackIn.translate(-1f, 0, 0);
-        add(builder, matrixStackIn, 0 + 1, 0 + 1, .5f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
-        add(builder, matrixStackIn, 1 - 1, 0 + 1, .5f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
-        add(builder, matrixStackIn, 1 - 1, 1 - 1, .5f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
-        add(builder, matrixStackIn, 0 + 1, 1 - 1, .5f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
+        // Front Faces [EAST - WEST]
+        add(builder, matrixStackIn, 0 + .8f, 0 + 1, .8f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 0 + 1, .8f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 1 - 1, .8f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 1 - 1, .8f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
 
-        add(builder, matrixStackIn, 0 + 1, 1 - 1, .5f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
-        add(builder, matrixStackIn, 1 - 1, 1 - 1, .5f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
-        add(builder, matrixStackIn, 1 - 1, 0 + 1, .5f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
-        add(builder, matrixStackIn, 0 + 1, 0 + 1, .5f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 1 - 1, .2f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 1 - 1, .2f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 0 + 1, .2f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 0 + 1, .2f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        
+        // Back Faces
+        add(builder, matrixStackIn, 0 + .8f, 0 + 1, .2f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 0 + 1, .2f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 1 - 1, .2f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 1 - 1, .2f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
+
+        add(builder, matrixStackIn, 0 + .8f, 1 - 1, .8f, sprite.getMinU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 1 - 1, .8f, sprite.getMaxU(), sprite.getMaxV(), r, g, b, a);
+        add(builder, matrixStackIn, 1 - .8f, 0 + 1, .8f, sprite.getMaxU(), sprite.getMinV(), r, g, b, a);
+        add(builder, matrixStackIn, 0 + .8f, 0 + 1, .8f, sprite.getMinU(), sprite.getMinV(), r, g, b, a);
 		matrixStackIn.pop();
 	}
 
