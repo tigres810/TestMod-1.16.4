@@ -5,6 +5,7 @@
 	//Blocks
 	"block.tmod.test_block": "Test Block",
 	"block.tmod.fluidtank_block": "Fluid Tank",
+	"block.tmod.energydispenser_block": "Energy Dispenser",
 	
 	//Items
 	"item.tmod.testitem": "Test Item",

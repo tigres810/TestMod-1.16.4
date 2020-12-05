@@ -2,10 +2,12 @@ package com.tigres810.testmod.util;
 
 import com.tigres810.testmod.Test;
 import com.tigres810.testmod.blocks.BlockItemBase;
+import com.tigres810.testmod.blocks.EnergyDispenserBlock;
 import com.tigres810.testmod.blocks.FluidTankBlock;
 import com.tigres810.testmod.blocks.TestBlock;
 import com.tigres810.testmod.items.ItemBase;
 import com.tigres810.testmod.tileentitys.TileFluidTankBlock;
+import com.tigres810.testmod.tileentitys.TileEnergyDispenserBlock;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowingFluidBlock;
@@ -56,16 +58,19 @@ public class RegistryHandler {
 	// Blocks
 	public static final RegistryObject<Block> TEST_BLOCK = BLOCKS.register("test_block", TestBlock::new);
 	public static final RegistryObject<Block> FLUIDTANK_BLOCK = BLOCKS.register("fluidtank_block", FluidTankBlock::new);
+	public static final RegistryObject<Block> ENERGYDISPENSER_BLOCK = BLOCKS.register("energydispenser_block", EnergyDispenserBlock::new);
 	
 	// Fluid Blocks
 	public static final RegistryObject<FlowingFluidBlock> FLUX_FLUID_BLOCK = BLOCKS.register("flux_fluid_block", () -> new FlowingFluidBlock(() -> RegistryHandler.FLUX_FLUID.get(), Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0f).noDrops()));
 	
 	// Tile Entity's
 	public static final RegistryObject<TileEntityType<TileFluidTankBlock>> FLUIDTANK_BLOCK_TILE = TILES.register("fluidtank_block", () -> TileEntityType.Builder.create(TileFluidTankBlock::new, FLUIDTANK_BLOCK.get()).build(null));
+	public static final RegistryObject<TileEntityType<TileEnergyDispenserBlock>> ENERGYDISPENSER_BLOCK_TILE = TILES.register("energydispenser_block", () -> TileEntityType.Builder.create(TileEnergyDispenserBlock::new, ENERGYDISPENSER_BLOCK.get()).build(null));
 	
 	// Block Items
 	public static final RegistryObject<Item> TEST_BLOCK_ITEM = ITEMS.register("test_block", () -> new BlockItemBase(TEST_BLOCK.get(), new Item.Properties().group(Test.TAB)));
 	public static final RegistryObject<Item> FLUIDTANK_BLOCK_ITEM = ITEMS.register("fluidtank_block", () -> new BlockItemBase(FLUIDTANK_BLOCK.get(), new Item.Properties().group(Test.TAB)));
+	public static final RegistryObject<Item> ENERGYDISPENSER_BLOCK_ITEM = ITEMS.register("energydispenser_block", () -> new BlockItemBase(ENERGYDISPENSER_BLOCK.get(), new Item.Properties().group(Test.TAB)));
 	
 	// Fluids
 	public static final RegistryObject<FlowingFluid> FLUX_FLUID = FLUIDS.register("flux_fluid_still", () -> new ForgeFlowingFluid.Source(RegistryHandler.FLUX_FLUID_PROPERTIES));
