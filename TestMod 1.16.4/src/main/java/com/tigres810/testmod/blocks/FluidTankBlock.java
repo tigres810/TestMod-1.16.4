@@ -239,12 +239,15 @@ public class FluidTankBlock extends Block {
                     		if(!fluidHandler.drain(550, IFluidHandler.FluidAction.SIMULATE).isEmpty()) {
                     			player.world.playSound(null, player.getPosition(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 1f, 1f);
                     		}
+                    		return (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
                     	} else if(heldItem.getItem() == RegistryHandler.FLUX_FLUID_BUCKET.get()) {
                     		if(fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 550), IFluidHandler.FluidAction.SIMULATE) == 550) {
                     			player.world.playSound(null, player.getPosition(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 1f, 1f);
                     		}
+                    		return (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
+                    	} else {
+                    		return(ActionResultType.FAIL);
                     	}
-                        return (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
                     }
                 }
             }

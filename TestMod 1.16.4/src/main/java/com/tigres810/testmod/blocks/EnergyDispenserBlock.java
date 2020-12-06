@@ -6,8 +6,6 @@ import javax.annotation.Nullable;
 
 import com.tigres810.testmod.tileentitys.TileFluidTankBlock;
 import com.tigres810.testmod.util.RegistryHandler;
-import com.tigres810.testmod.util.packets.ServerPacketAPI;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -137,13 +135,18 @@ public class EnergyDispenserBlock extends Block {
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		if (!worldIn.isRemote) {
 			TileEntity te = worldIn.getTileEntity(pos.down());
-			Direction bl = te.getBlockState().get(FACING);
-
-            if (te != null && te instanceof TileFluidTankBlock) {
-            	if(bl != state.get(FACING)) {
-            		new ServerPacketAPI().DestroyBlockServerSide(pos, worldIn);
-            	}
-            }
+			if(te != null) {
+				Direction bl = te.getBlockState().get(FACING);
+	
+	            if (te instanceof TileFluidTankBlock) {
+	            	System.out.print(bl + " " + state.get(FACING) + " " + bl.getOpposite());
+	            	if(bl != state.get(FACING)) {
+	            		if(bl.getOpposite() != state.get(FACING)) {
+	            			worldIn.destroyBlock(pos, true);
+	            		}
+	            	}
+	            }
+			}
 		}
 	}
 	
