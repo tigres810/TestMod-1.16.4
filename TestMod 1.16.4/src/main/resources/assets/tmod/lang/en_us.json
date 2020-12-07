@@ -9,6 +9,7 @@
 	
 	//Items
 	"item.tmod.testitem": "Test Item",
+	"item.tmod.magic_stick": "Magic Stick",
 	
 	//Tabs
 	"itemGroup.testTab": "TestMod"

@@ -4,6 +4,8 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import com.tigres810.testmod.items.MagicStickItem;
+import com.tigres810.testmod.tileentitys.TileEnergyDispenserBlock;
 import com.tigres810.testmod.tileentitys.TileFluidTankBlock;
 import com.tigres810.testmod.util.RegistryHandler;
 import net.minecraft.block.Block;
@@ -12,15 +14,20 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -139,7 +146,6 @@ public class EnergyDispenserBlock extends Block {
 				Direction bl = te.getBlockState().get(FACING);
 	
 	            if (te instanceof TileFluidTankBlock) {
-	            	System.out.print(bl + " " + state.get(FACING) + " " + bl.getOpposite());
 	            	if(bl != state.get(FACING)) {
 	            		if(bl.getOpposite() != state.get(FACING)) {
 	            			worldIn.destroyBlock(pos, true);
@@ -148,6 +154,37 @@ public class EnergyDispenserBlock extends Block {
 	            }
 			}
 		}
+	}
+	
+	@Override
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+        if (world.isRemote) {
+        	Item handitem = player.getHeldItem(hand).getItem();
+        	if(handitem == RegistryHandler.MAGIC_STICK.get()) {
+        		if(((MagicStickItem) handitem).getposition1() != pos) {
+        			if(((MagicStickItem) handitem).getposition2() != pos) {
+		        		((MagicStickItem) handitem).setpositions(pos, world, player);
+        			}
+        		}
+        	}
+        }
+        
+        return ActionResultType.SUCCESS;
+	}
+	
+	@Override
+	public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+		TileEntity tileentity = worldIn.getTileEntity(pos);
+		
+		if(tileentity instanceof TileEnergyDispenserBlock) {
+			BlockPos connectedto = ((TileEnergyDispenserBlock) tileentity).getConnectedTo();
+			TileEntity connectedtotileentity = worldIn.getTileEntity(connectedto);
+			
+			if(connectedtotileentity != null) {
+				((TileEnergyDispenserBlock) connectedtotileentity).setConnectedTo(BlockPos.ZERO);
+			}
+		}
+		super.onBlockHarvested(worldIn, pos, state, player);
 	}
 	
 	@Override

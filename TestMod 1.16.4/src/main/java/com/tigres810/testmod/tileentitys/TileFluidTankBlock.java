@@ -57,13 +57,13 @@ public class TileFluidTankBlock extends TileEntity {
 	@Override
     public void read(BlockState state, CompoundNBT tag) {
         super.read(state, tag);
-        getTank().readFromNBT(tag);
+        this.getTank().readFromNBT(tag);
     }
 
     @Override
     public CompoundNBT write(CompoundNBT tag) {
         tag = super.write(tag);
-        getTank().writeToNBT(tag);
+        this.getTank().writeToNBT(tag);
         return tag;
     }
     

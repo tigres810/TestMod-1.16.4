@@ -6,6 +6,7 @@ import com.tigres810.testmod.blocks.EnergyDispenserBlock;
 import com.tigres810.testmod.blocks.FluidTankBlock;
 import com.tigres810.testmod.blocks.TestBlock;
 import com.tigres810.testmod.items.ItemBase;
+import com.tigres810.testmod.items.MagicStickItem;
 import com.tigres810.testmod.tileentitys.TileFluidTankBlock;
 import com.tigres810.testmod.tileentitys.TileEnergyDispenserBlock;
 
@@ -51,6 +52,7 @@ public class RegistryHandler {
 	
 	// Items
 	public static final RegistryObject<Item> TESTITEM = ITEMS.register("testitem", () -> new ItemBase(new Item.Properties().group(Test.TAB)));
+	public static final RegistryObject<Item> MAGIC_STICK = ITEMS.register("magic_stick", () -> new MagicStickItem(new Item.Properties().group(Test.TAB)));
 	
 	// Fluid Buckets
 	public static final RegistryObject<BucketItem> FLUX_FLUID_BUCKET = ITEMS.register("flux_fluid_bucket", () -> new BucketItem(() -> RegistryHandler.FLUX_FLUID.get(), new Item.Properties().group(Test.TAB)));

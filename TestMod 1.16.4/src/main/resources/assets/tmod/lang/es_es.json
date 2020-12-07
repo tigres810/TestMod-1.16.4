@@ -8,7 +8,8 @@
 	"block.tmod.energydispenser_block": "Dispensador de energia",
 	
 	//Items
-	"item.tmod.testitem": "Item de Prueba",
+	"item.tmod.testitem": "Item de prueba",
+	"item.tmod.magic_stick": "Palo magico",
 	
 	//Tabs
 	"itemGroup.testTab": "TestMod"

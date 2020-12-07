@@ -202,9 +202,8 @@ public class FluidTankBlock extends Block {
                     IFluidHandler fluidHandler = fluidHandlerCap.orElseThrow(IllegalStateException::new);
 
                     if (heldItem.getItem() == Items.GLASS_BOTTLE) {
-                    	System.out.print("1 " + heldItem.getItem());
-                        if (fluidHandler.drain(333, IFluidHandler.FluidAction.SIMULATE).getAmount() == 333) {
-                            fluidHandler.drain(333, IFluidHandler.FluidAction.EXECUTE);
+                        if (fluidHandler.drain(500, IFluidHandler.FluidAction.SIMULATE).getAmount() == 500) {
+                            fluidHandler.drain(500, IFluidHandler.FluidAction.EXECUTE);
 
                             player.world.playSound(null, player.getPosition(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 1f, 1f);
 
@@ -219,8 +218,8 @@ public class FluidTankBlock extends Block {
                         }
                     } else if (heldItem.getItem() == Items.POTION && heldItem.getTag() != null) {
                         if (heldItem.getTag().getString("Potion").equals("minecraft:water")) {
-                            if (fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 550), IFluidHandler.FluidAction.SIMULATE) == 550) {
-                                fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 550), IFluidHandler.FluidAction.EXECUTE);
+                            if (fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 500), IFluidHandler.FluidAction.SIMULATE) == 500) {
+                                fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 500), IFluidHandler.FluidAction.EXECUTE);
 
                                 player.world.playSound(null, player.getPosition(), SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.PLAYERS, 1f, 1f);
 
@@ -236,12 +235,12 @@ public class FluidTankBlock extends Block {
                         }
                     } else {
                     	if(heldItem.getItem() == Items.BUCKET) {
-                    		if(!fluidHandler.drain(550, IFluidHandler.FluidAction.SIMULATE).isEmpty()) {
+                    		if(!fluidHandler.drain(1000, IFluidHandler.FluidAction.SIMULATE).isEmpty()) {
                     			player.world.playSound(null, player.getPosition(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 1f, 1f);
                     		}
                     		return (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
                     	} else if(heldItem.getItem() == RegistryHandler.FLUX_FLUID_BUCKET.get()) {
-                    		if(fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 550), IFluidHandler.FluidAction.SIMULATE) == 550) {
+                    		if(fluidHandler.fill(new FluidStack(RegistryHandler.FLUX_FLUID.get(), 1000), IFluidHandler.FluidAction.SIMULATE) == 1000) {
                     			player.world.playSound(null, player.getPosition(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 1f, 1f);
                     		}
                     		return (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
