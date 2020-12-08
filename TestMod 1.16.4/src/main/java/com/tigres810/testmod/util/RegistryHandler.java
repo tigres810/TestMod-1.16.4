@@ -2,6 +2,7 @@ package com.tigres810.testmod.util;
 
 import com.tigres810.testmod.Test;
 import com.tigres810.testmod.blocks.BlockItemBase;
+import com.tigres810.testmod.blocks.CauldronBlock;
 import com.tigres810.testmod.blocks.EnergyDispenserBlock;
 import com.tigres810.testmod.blocks.FluidTankBlock;
 import com.tigres810.testmod.blocks.TestBlock;
@@ -61,6 +62,7 @@ public class RegistryHandler {
 	public static final RegistryObject<Block> TEST_BLOCK = BLOCKS.register("test_block", TestBlock::new);
 	public static final RegistryObject<Block> FLUIDTANK_BLOCK = BLOCKS.register("fluidtank_block", FluidTankBlock::new);
 	public static final RegistryObject<Block> ENERGYDISPENSER_BLOCK = BLOCKS.register("energydispenser_block", EnergyDispenserBlock::new);
+	public static final RegistryObject<Block> CAULDRON_BLOCK = BLOCKS.register("cauldron_block", CauldronBlock::new);
 	
 	// Fluid Blocks
 	public static final RegistryObject<FlowingFluidBlock> FLUX_FLUID_BLOCK = BLOCKS.register("flux_fluid_block", () -> new FlowingFluidBlock(() -> RegistryHandler.FLUX_FLUID.get(), Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0f).noDrops()));
@@ -73,6 +75,7 @@ public class RegistryHandler {
 	public static final RegistryObject<Item> TEST_BLOCK_ITEM = ITEMS.register("test_block", () -> new BlockItemBase(TEST_BLOCK.get(), new Item.Properties().group(Test.TAB)));
 	public static final RegistryObject<Item> FLUIDTANK_BLOCK_ITEM = ITEMS.register("fluidtank_block", () -> new BlockItemBase(FLUIDTANK_BLOCK.get(), new Item.Properties().group(Test.TAB)));
 	public static final RegistryObject<Item> ENERGYDISPENSER_BLOCK_ITEM = ITEMS.register("energydispenser_block", () -> new BlockItemBase(ENERGYDISPENSER_BLOCK.get(), new Item.Properties().group(Test.TAB)));
+	public static final RegistryObject<Item> CAULDRON_BLOCK_ITEM = ITEMS.register("cauldron_block", () -> new BlockItemBase(CAULDRON_BLOCK.get(), new Item.Properties().group(Test.TAB)));
 	
 	// Fluids
 	public static final RegistryObject<FlowingFluid> FLUX_FLUID = FLUIDS.register("flux_fluid_still", () -> new ForgeFlowingFluid.Source(RegistryHandler.FLUX_FLUID_PROPERTIES));

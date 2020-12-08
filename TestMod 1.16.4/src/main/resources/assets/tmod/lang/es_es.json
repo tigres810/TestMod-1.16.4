@@ -6,6 +6,7 @@
 	"block.tmod.test_block": "Bloque de prueba",
 	"block.tmod.fluidtank_block": "Tanque de fluidos",
 	"block.tmod.energydispenser_block": "Dispensador de energia",
+	"block.tmod.cauldron_block": "Caldero magico",
 	
 	//Items
 	"item.tmod.testitem": "Item de prueba",
