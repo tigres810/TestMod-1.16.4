@@ -40,8 +40,6 @@ public class TileFluidTankBlock extends TileEntity {
         super(RegistryHandler.FLUIDTANK_BLOCK_TILE.get());
     }
     
-    public int fluidamount;
-    
     @Override
     @Nonnull
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {

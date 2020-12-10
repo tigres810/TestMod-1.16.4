@@ -3,6 +3,7 @@ package com.tigres810.testmod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.tigres810.testmod.tileentitys.renders.RenderCauldronBlock;
 import com.tigres810.testmod.tileentitys.renders.RenderFluidTankBlock;
 import com.tigres810.testmod.util.RegistryHandler;
 import net.minecraft.item.ItemGroup;
@@ -38,6 +39,7 @@ public class Test
 
     private void doClientStuff(final FMLClientSetupEvent event) {
     	ClientRegistry.bindTileEntityRenderer(RegistryHandler.FLUIDTANK_BLOCK_TILE.get(), RenderFluidTankBlock::new);
+    	ClientRegistry.bindTileEntityRenderer(RegistryHandler.CAULDRON_BLOCK_TILE.get(), RenderCauldronBlock::new);
     }
     
     public static final ItemGroup TAB = new ItemGroup("testTab") {

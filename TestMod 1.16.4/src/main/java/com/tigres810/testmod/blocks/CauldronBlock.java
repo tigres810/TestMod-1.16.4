@@ -2,23 +2,41 @@ package com.tigres810.testmod.blocks;
 
 import java.util.stream.Stream;
 
+import com.tigres810.testmod.util.RegistryHandler;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer.Builder;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
 public class CauldronBlock extends Block {
 	
@@ -108,6 +126,46 @@ public class CauldronBlock extends Block {
 				.harvestTool(ToolType.PICKAXE)
 				.setRequiresTool()
 		);
+	}
+	
+	@Override
+	public boolean hasTileEntity(BlockState state) {
+		return true;
+	}
+	
+	@Override
+	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+		return RegistryHandler.CAULDRON_BLOCK_TILE.get().create();
+	}
+	
+	@Override
+	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+		if(!worldIn.isRemote) {
+			ItemStack heldItem = player.getHeldItem(handIn);
+            TileEntity tileEntity = worldIn.getTileEntity(pos);
+            
+            if(tileEntity != null) {
+            	LazyOptional<IFluidHandler> fluidHandlerCap = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+
+                if (fluidHandlerCap.isPresent()) {
+                	IFluidHandler fluidHandler = fluidHandlerCap.orElseThrow(IllegalStateException::new);
+                	if(heldItem.getItem() == Items.BUCKET) {
+                		if(!fluidHandler.drain(1000, IFluidHandler.FluidAction.SIMULATE).isEmpty()) {
+                			player.world.playSound(null, player.getPosition(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 1f, 1f);
+                		}
+                		return (FluidUtil.interactWithFluidHandler(player, handIn, fluidHandler)) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
+                	} else if(heldItem.getItem() == Items.WATER_BUCKET) {
+                		if(fluidHandler.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.SIMULATE) == 1000) {
+                			player.world.playSound(null, player.getPosition(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 1f, 1f);
+                		}
+                		return (FluidUtil.interactWithFluidHandler(player, handIn, fluidHandler)) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
+                	} else {
+                		return ActionResultType.FAIL;
+                	}
+                }
+            }
+		}
+		return ActionResultType.SUCCESS;
 	}
 	
 	@Override

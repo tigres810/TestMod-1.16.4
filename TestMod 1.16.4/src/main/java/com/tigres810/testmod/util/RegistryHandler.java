@@ -9,6 +9,7 @@ import com.tigres810.testmod.blocks.TestBlock;
 import com.tigres810.testmod.items.ItemBase;
 import com.tigres810.testmod.items.MagicStickItem;
 import com.tigres810.testmod.tileentitys.TileFluidTankBlock;
+import com.tigres810.testmod.tileentitys.TileCauldronBlock;
 import com.tigres810.testmod.tileentitys.TileEnergyDispenserBlock;
 
 import net.minecraft.block.Block;
@@ -70,6 +71,7 @@ public class RegistryHandler {
 	// Tile Entity's
 	public static final RegistryObject<TileEntityType<TileFluidTankBlock>> FLUIDTANK_BLOCK_TILE = TILES.register("fluidtank_block", () -> TileEntityType.Builder.create(TileFluidTankBlock::new, FLUIDTANK_BLOCK.get()).build(null));
 	public static final RegistryObject<TileEntityType<TileEnergyDispenserBlock>> ENERGYDISPENSER_BLOCK_TILE = TILES.register("energydispenser_block", () -> TileEntityType.Builder.create(TileEnergyDispenserBlock::new, ENERGYDISPENSER_BLOCK.get()).build(null));
+	public static final RegistryObject<TileEntityType<TileCauldronBlock>> CAULDRON_BLOCK_TILE = TILES.register("cauldron_block", () -> TileEntityType.Builder.create(TileCauldronBlock::new, CAULDRON_BLOCK.get()).build(null));
 	
 	// Block Items
 	public static final RegistryObject<Item> TEST_BLOCK_ITEM = ITEMS.register("test_block", () -> new BlockItemBase(TEST_BLOCK.get(), new Item.Properties().group(Test.TAB)));
