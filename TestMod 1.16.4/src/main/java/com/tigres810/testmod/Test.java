@@ -6,10 +6,11 @@ import org.apache.logging.log4j.Logger;
 import com.tigres810.testmod.tileentitys.renders.RenderCauldronBlock;
 import com.tigres810.testmod.tileentitys.renders.RenderFluidTankBlock;
 import com.tigres810.testmod.util.RegistryHandler;
+
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -18,19 +19,19 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod("tmod")
+@Mod(Test.MOD_ID)
 public class Test
 {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "tmod";
+    public static IEventBus MOD_EVENT_BUS;
 
     public Test() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+    	MOD_EVENT_BUS = FMLJavaModLoadingContext.get().getModEventBus();
+        MOD_EVENT_BUS.addListener(this::setup);
+        MOD_EVENT_BUS.addListener(this::doClientStuff);
         
         RegistryHandler.init();
-
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
@@ -38,6 +39,7 @@ public class Test
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
+    	// Tile entitys
     	ClientRegistry.bindTileEntityRenderer(RegistryHandler.FLUIDTANK_BLOCK_TILE.get(), RenderFluidTankBlock::new);
     	ClientRegistry.bindTileEntityRenderer(RegistryHandler.CAULDRON_BLOCK_TILE.get(), RenderCauldronBlock::new);
     }

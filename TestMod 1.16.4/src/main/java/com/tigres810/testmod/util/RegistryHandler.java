@@ -6,6 +6,7 @@ import com.tigres810.testmod.blocks.CauldronBlock;
 import com.tigres810.testmod.blocks.EnergyDispenserBlock;
 import com.tigres810.testmod.blocks.FluidTankBlock;
 import com.tigres810.testmod.blocks.TestBlock;
+import com.tigres810.testmod.items.InformationTabletItem;
 import com.tigres810.testmod.items.ItemBase;
 import com.tigres810.testmod.items.MagicStickItem;
 import com.tigres810.testmod.tileentitys.TileFluidTankBlock;
@@ -17,7 +18,6 @@ import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
@@ -37,7 +37,6 @@ public class RegistryHandler {
 	public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Test.MOD_ID);
 	public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Test.MOD_ID);
 	public static final DeferredRegister<TileEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Test.MOD_ID);
-	public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Test.MOD_ID);
 	
 	// Resource Locations
 	public static final ResourceLocation FLUX_FLUID_ST = new ResourceLocation(Test.MOD_ID, "blocks/flux_fluid_still");
@@ -49,12 +48,15 @@ public class RegistryHandler {
 		FLUIDS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
-		CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
 	
 	// Items
 	public static final RegistryObject<Item> TESTITEM = ITEMS.register("testitem", () -> new ItemBase(new Item.Properties().group(Test.TAB)));
 	public static final RegistryObject<Item> MAGIC_STICK = ITEMS.register("magic_stick", () -> new MagicStickItem(new Item.Properties().group(Test.TAB)));
+	public static final RegistryObject<Item> INFORMATION_TABLET = ITEMS.register("information_tablet", () -> new InformationTabletItem(new Item.Properties().group(Test.TAB)));
+	
+	// Ores Items
+	public static final RegistryObject<Item> FLUX_ORE = ITEMS.register("flux_ore", () -> new ItemBase(new Item.Properties().group(Test.TAB)));
 	
 	// Fluid Buckets
 	public static final RegistryObject<BucketItem> FLUX_FLUID_BUCKET = ITEMS.register("flux_fluid_bucket", () -> new BucketItem(() -> RegistryHandler.FLUX_FLUID.get(), new Item.Properties().group(Test.TAB)));
@@ -64,6 +66,9 @@ public class RegistryHandler {
 	public static final RegistryObject<Block> FLUIDTANK_BLOCK = BLOCKS.register("fluidtank_block", FluidTankBlock::new);
 	public static final RegistryObject<Block> ENERGYDISPENSER_BLOCK = BLOCKS.register("energydispenser_block", EnergyDispenserBlock::new);
 	public static final RegistryObject<Block> CAULDRON_BLOCK = BLOCKS.register("cauldron_block", CauldronBlock::new);
+	
+	// Mineral Blocks
+	public static final RegistryObject<Block> FLUX_ORE_BLOCK = BLOCKS.register("flux_ore_block", TestBlock::new);
 	
 	// Fluid Blocks
 	public static final RegistryObject<FlowingFluidBlock> FLUX_FLUID_BLOCK = BLOCKS.register("flux_fluid_block", () -> new FlowingFluidBlock(() -> RegistryHandler.FLUX_FLUID.get(), Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0f).noDrops()));
@@ -79,10 +84,18 @@ public class RegistryHandler {
 	public static final RegistryObject<Item> ENERGYDISPENSER_BLOCK_ITEM = ITEMS.register("energydispenser_block", () -> new BlockItemBase(ENERGYDISPENSER_BLOCK.get(), new Item.Properties().group(Test.TAB)));
 	public static final RegistryObject<Item> CAULDRON_BLOCK_ITEM = ITEMS.register("cauldron_block", () -> new BlockItemBase(CAULDRON_BLOCK.get(), new Item.Properties().group(Test.TAB)));
 	
+	// Mineral Blocks Items
+	public static final RegistryObject<Item> FLUX_ORE_BLOCK_ITEM = ITEMS.register("flux_ore_block", () -> new BlockItemBase(FLUX_ORE_BLOCK.get(), new Item.Properties().group(Test.TAB)));
+	
 	// Fluids
 	public static final RegistryObject<FlowingFluid> FLUX_FLUID = FLUIDS.register("flux_fluid_still", () -> new ForgeFlowingFluid.Source(RegistryHandler.FLUX_FLUID_PROPERTIES));
 	public static final RegistryObject<FlowingFluid> FLUX_FLUID_FLOWING = FLUIDS.register("flux_fluid_flow", () -> new ForgeFlowingFluid.Flowing(RegistryHandler.FLUX_FLUID_PROPERTIES));
 	public static final ForgeFlowingFluid.Properties FLUX_FLUID_PROPERTIES = new ForgeFlowingFluid.Properties(() -> FLUX_FLUID.get(), () -> FLUX_FLUID_FLOWING.get(), FluidAttributes.builder(FLUX_FLUID_ST, FLUX_FLUID_FL).density(5).luminosity(3).rarity(Rarity.RARE).overlay(FLUX_FLUID_OV)).block(() -> FLUX_FLUID_BLOCK.get()).bucket(() -> FLUX_FLUID_BUCKET.get());
 	
 	// Containers
+	/*
+	public static final RegistryObject<ContainerType<InformationTabletContainer>> INFORMATION_TABLET_GUI = CONTAINERS.register("information_tablet_gui", () -> IForgeContainerType.create((windowId, inv, data) -> {
+        new InformationTabletContainer(windowId);
+    }));
+    */
 }

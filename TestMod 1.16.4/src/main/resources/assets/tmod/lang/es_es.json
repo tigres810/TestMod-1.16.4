@@ -8,10 +8,21 @@
 	"block.tmod.energydispenser_block": "Dispensador de energia",
 	"block.tmod.cauldron_block": "Caldero magico",
 	
+	//Ore Blocks
+	"block.tmod.flux_ore_block": "Bloque mineral de flux",
+	
 	//Items
 	"item.tmod.testitem": "Item de prueba",
+	"item.tmod.information_tablet": "Tableta informativa",
 	"item.tmod.magic_stick": "Palo magico",
 	
+	//Ores
+	"item.tmod.flux_ore": "Mineral de flux",
+	
 	//Tabs
-	"itemGroup.testTab": "TestMod"
+	"itemGroup.testTab": "TestMod",
+	
+	//Gui
+	"gui.title": "Guia",
+	"gui.leftpage0": "Super test, mas grande que el anterior test"
 }
