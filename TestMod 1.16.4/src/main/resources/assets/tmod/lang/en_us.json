@@ -9,7 +9,7 @@
 	"block.tmod.cauldron_block": "Magic Cauldron",
 	
 	//Ore Blocks
-	"block.tmod.flux_ore_block": "Flux Ore Block",
+	"block.tmod.flux_ore": "Flux Ore",
 	
 	//Items
 	"item.tmod.testitem": "Test Item",
@@ -17,7 +17,7 @@
 	"item.tmod.magic_stick": "Magic Stick",
 	
 	//Ores
-	"item.tmod.flux_ore": "Flux Ore",
+	"item.tmod.ingot_flux": "Flux Ingot",
 	
 	//Tabs
 	"itemGroup.testTab": "TestMod",

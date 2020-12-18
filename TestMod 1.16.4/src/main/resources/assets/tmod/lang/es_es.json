@@ -9,7 +9,7 @@
 	"block.tmod.cauldron_block": "Caldero magico",
 	
 	//Ore Blocks
-	"block.tmod.flux_ore_block": "Bloque mineral de flux",
+	"block.tmod.flux_ore": "Mineral de flux",
 	
 	//Items
 	"item.tmod.testitem": "Item de prueba",
@@ -17,7 +17,7 @@
 	"item.tmod.magic_stick": "Palo magico",
 	
 	//Ores
-	"item.tmod.flux_ore": "Mineral de flux",
+	"item.tmod.ingot_flux": "Lingote de flux",
 	
 	//Tabs
 	"itemGroup.testTab": "TestMod",

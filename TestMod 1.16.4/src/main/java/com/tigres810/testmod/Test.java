@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import com.tigres810.testmod.tileentitys.renders.RenderCauldronBlock;
 import com.tigres810.testmod.tileentitys.renders.RenderFluidTankBlock;
 import com.tigres810.testmod.util.RegistryHandler;
+import com.tigres810.testmod.world.gen.OreGeneration;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -35,11 +36,11 @@ public class Test
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-    	
+    	OreGeneration.registerOres();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-    	// Tile entitys
+    	// Tile entity's
     	ClientRegistry.bindTileEntityRenderer(RegistryHandler.FLUIDTANK_BLOCK_TILE.get(), RenderFluidTankBlock::new);
     	ClientRegistry.bindTileEntityRenderer(RegistryHandler.CAULDRON_BLOCK_TILE.get(), RenderCauldronBlock::new);
     }

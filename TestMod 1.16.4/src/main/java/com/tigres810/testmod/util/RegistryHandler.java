@@ -1,6 +1,7 @@
 package com.tigres810.testmod.util;
 
 import com.tigres810.testmod.Test;
+import com.tigres810.testmod.blocks.BlockFluxOre;
 import com.tigres810.testmod.blocks.BlockItemBase;
 import com.tigres810.testmod.blocks.CauldronBlock;
 import com.tigres810.testmod.blocks.EnergyDispenserBlock;
@@ -56,7 +57,7 @@ public class RegistryHandler {
 	public static final RegistryObject<Item> INFORMATION_TABLET = ITEMS.register("information_tablet", () -> new InformationTabletItem(new Item.Properties().group(Test.TAB)));
 	
 	// Ores Items
-	public static final RegistryObject<Item> FLUX_ORE = ITEMS.register("flux_ore", () -> new ItemBase(new Item.Properties().group(Test.TAB)));
+	public static final RegistryObject<Item> FLUX_ORE = ITEMS.register("ingot_flux", () -> new ItemBase(new Item.Properties().group(Test.TAB)));
 	
 	// Fluid Buckets
 	public static final RegistryObject<BucketItem> FLUX_FLUID_BUCKET = ITEMS.register("flux_fluid_bucket", () -> new BucketItem(() -> RegistryHandler.FLUX_FLUID.get(), new Item.Properties().group(Test.TAB)));
@@ -68,7 +69,7 @@ public class RegistryHandler {
 	public static final RegistryObject<Block> CAULDRON_BLOCK = BLOCKS.register("cauldron_block", CauldronBlock::new);
 	
 	// Mineral Blocks
-	public static final RegistryObject<Block> FLUX_ORE_BLOCK = BLOCKS.register("flux_ore_block", TestBlock::new);
+	public static final RegistryObject<Block> FLUX_ORE_BLOCK = BLOCKS.register("flux_ore", BlockFluxOre::new);
 	
 	// Fluid Blocks
 	public static final RegistryObject<FlowingFluidBlock> FLUX_FLUID_BLOCK = BLOCKS.register("flux_fluid_block", () -> new FlowingFluidBlock(() -> RegistryHandler.FLUX_FLUID.get(), Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0f).noDrops()));
@@ -85,7 +86,7 @@ public class RegistryHandler {
 	public static final RegistryObject<Item> CAULDRON_BLOCK_ITEM = ITEMS.register("cauldron_block", () -> new BlockItemBase(CAULDRON_BLOCK.get(), new Item.Properties().group(Test.TAB)));
 	
 	// Mineral Blocks Items
-	public static final RegistryObject<Item> FLUX_ORE_BLOCK_ITEM = ITEMS.register("flux_ore_block", () -> new BlockItemBase(FLUX_ORE_BLOCK.get(), new Item.Properties().group(Test.TAB)));
+	public static final RegistryObject<Item> FLUX_ORE_BLOCK_ITEM = ITEMS.register("flux_ore", () -> new BlockItemBase(FLUX_ORE_BLOCK.get(), new Item.Properties().group(Test.TAB)));
 	
 	// Fluids
 	public static final RegistryObject<FlowingFluid> FLUX_FLUID = FLUIDS.register("flux_fluid_still", () -> new ForgeFlowingFluid.Source(RegistryHandler.FLUX_FLUID_PROPERTIES));
