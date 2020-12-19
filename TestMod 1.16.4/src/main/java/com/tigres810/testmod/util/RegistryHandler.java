@@ -11,6 +11,7 @@ import com.tigres810.testmod.items.InformationTabletItem;
 import com.tigres810.testmod.items.ItemBase;
 import com.tigres810.testmod.items.MagicStickItem;
 import com.tigres810.testmod.tileentitys.TileFluidTankBlock;
+
 import com.tigres810.testmod.tileentitys.TileCauldronBlock;
 import com.tigres810.testmod.tileentitys.TileEnergyDispenserBlock;
 
@@ -58,6 +59,9 @@ public class RegistryHandler {
 	
 	// Ores Items
 	public static final RegistryObject<Item> FLUX_ORE = ITEMS.register("ingot_flux", () -> new ItemBase(new Item.Properties().group(Test.TAB)));
+	
+	// Dust Items
+	public static final RegistryObject<Item> FLUX_DUST = ITEMS.register("dust_flux", () -> new ItemBase(new Item.Properties().group(Test.TAB)));
 	
 	// Fluid Buckets
 	public static final RegistryObject<BucketItem> FLUX_FLUID_BUCKET = ITEMS.register("flux_fluid_bucket", () -> new BucketItem(() -> RegistryHandler.FLUX_FLUID.get(), new Item.Properties().group(Test.TAB)));
