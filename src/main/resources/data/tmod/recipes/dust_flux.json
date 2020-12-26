@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "tmod:dust_flux"
+  },
+  "result":
+    {
+        "item": "tmod:ingot_flux",
+        "count": 3,
+        "experience": 4.0,
+  		"cookingtime": 200
+    }
+}

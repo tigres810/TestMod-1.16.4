@@ -1,0 +1,34 @@
+{
+	//Fluids
+	"item.tmod.flux_fluid_bucket": "Cubo de flux",
+	
+	//Blocks
+	"block.tmod.test_block": "Bloque de prueba",
+	"block.tmod.fluidtank_block": "Tanque de fluidos",
+	"block.tmod.energydispenser_block": "Dispensador de energia",
+	"block.tmod.cauldron_block": "Caldero magico",
+	
+	//Ore Blocks
+	"block.tmod.flux_ore": "Mineral de flux",
+	
+	//Items
+	"item.tmod.testitem": "Item de prueba",
+	"item.tmod.information_tablet": "Tableta informativa",
+	"item.tmod.magic_stick": "Palo magico",
+	
+	//Ores
+	"item.tmod.ingot_flux": "Lingote de flux",
+	
+	//Dust
+	"item.tmod.dust_flux": "Polvo de flux",
+	
+	//Tabs
+	"itemGroup.testTab": "TestMod",
+	
+	//Gui
+	"gui.title": "Guia",
+	"gui.leftpage0": "Super test,",
+	"gui.leftpage0.1": "mas grande",
+	"gui.leftpage0.2": "que el",
+	"gui.leftpage0.3": "anterior test."
+}
