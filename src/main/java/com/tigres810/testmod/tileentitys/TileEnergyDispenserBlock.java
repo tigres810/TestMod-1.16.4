@@ -29,7 +29,7 @@ public class TileEnergyDispenserBlock extends TileEntity implements ITickableTil
 	
 	private final LazyOptional<IEnergyStorage> holder = LazyOptional.of(() -> storage);
 	
-	private int ticks;
+	private int ticks = 0;
 	public static BlockPos connectedto = BlockPos.ZERO;
 
 	public TileEnergyDispenserBlock() {
@@ -39,7 +39,9 @@ public class TileEnergyDispenserBlock extends TileEntity implements ITickableTil
 	@Override
 	public void tick() {
 		if(!this.world.isRemote) {
+			this.energy = this.storage.getEnergyStored();
 			if(this.ticks >= 200) {
+				
 				if(this.sendEnergy == false) {
 					if(this.energy < this.getMaxEnergyFromStorage()) {
 						TileEntity tank = this.world.getTileEntity(this.pos.down());
@@ -53,7 +55,7 @@ public class TileEnergyDispenserBlock extends TileEntity implements ITickableTil
 								if (fluidHandler.drain(1000, IFluidHandler.FluidAction.SIMULATE).getAmount() == 1000) {
 									this.ticks = 0;
 									fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
-									this.energy += 1;
+									this.storage.receiveEnergy(1, false);
 									this.sendEnergy = true;
 									this.markDirty();
 								} else {
@@ -77,11 +79,12 @@ public class TileEnergyDispenserBlock extends TileEntity implements ITickableTil
 					
 					if(anotherStorage != null) {
 						if(this.getEnergyFromStorage() > 0) {
-							if(((TileEnergyDispenserBlock) anotherStorage).energy < ((TileEnergyDispenserBlock) anotherStorage).getMaxEnergyFromStorage()) {
+							if(((TileEnergyDispenserBlock) anotherStorage).getEnergyFromStorage() < ((TileEnergyDispenserBlock) anotherStorage).getMaxEnergyFromStorage()) {
 								this.ticks = 0;
 								this.energy -= 1;
+								this.storage.extractEnergy(1, false);
 								this.sendEnergy = false;
-								((TileEnergyDispenserBlock) anotherStorage).energy += 1;
+								((TileEnergyDispenserBlock) anotherStorage).storage.receiveEnergy(1, false);
 								this.markDirty();
 								((TileEnergyDispenserBlock) anotherStorage).markDirty();
 							} else {
@@ -158,6 +161,11 @@ public class TileEnergyDispenserBlock extends TileEntity implements ITickableTil
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
       return new SUpdateTileEntityPacket(getPos(), 1, getUpdateTag());
+    }
+    
+    @Override
+    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+    	read(state, tag);
     }
 
     @Override

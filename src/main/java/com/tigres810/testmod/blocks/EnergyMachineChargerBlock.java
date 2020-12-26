@@ -15,6 +15,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.tileentity.TileEntity;
@@ -93,6 +94,11 @@ public class EnergyMachineChargerBlock extends Block implements IPipeConnect {
 		World world = (World) worldIn;
 		BlockPos pos = currentPos;
 		return super.updatePostPlacement(stateIn.with(DOWN, this.isSideConnectable(world, pos, Direction.DOWN)).with(EAST, this.isSideConnectable(world, pos, Direction.EAST)).with(NORTH, this.isSideConnectable(world, pos, Direction.NORTH)).with(SOUTH, this.isSideConnectable(world, pos, Direction.SOUTH)).with(UP, this.isSideConnectable(world, pos, Direction.UP)).with(WEST, this.isSideConnectable(world, pos, Direction.WEST)), facing, facingState, worldIn, currentPos, facingPos);
+	}
+	
+	@Override
+	public BlockState getStateForPlacement(BlockItemUseContext context) {
+		return super.getStateForPlacement(context).with(DOWN, this.isSideConnectable(context.getWorld(), context.getPos(), Direction.DOWN)).with(EAST, this.isSideConnectable(context.getWorld(), context.getPos(), Direction.EAST)).with(NORTH, this.isSideConnectable(context.getWorld(), context.getPos(), Direction.NORTH)).with(SOUTH, this.isSideConnectable(context.getWorld(), context.getPos(), Direction.SOUTH)).with(UP, this.isSideConnectable(context.getWorld(), context.getPos(), Direction.UP)).with(WEST, this.isSideConnectable(context.getWorld(), context.getPos(), Direction.WEST));
 	}
 	
 	private boolean isSideConnectable (World world, BlockPos pos, Direction side) {

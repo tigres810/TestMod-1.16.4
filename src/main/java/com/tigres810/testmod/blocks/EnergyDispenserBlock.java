@@ -1,5 +1,7 @@
 package com.tigres810.testmod.blocks;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -8,6 +10,8 @@ import com.tigres810.testmod.items.MagicStickItem;
 import com.tigres810.testmod.tileentitys.TileEnergyDispenserBlock;
 import com.tigres810.testmod.tileentitys.TileFluidTankBlock;
 import com.tigres810.testmod.util.RegistryHandler;
+import com.tigres810.testmod.util.interfaces.IPipeConnect;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -36,7 +40,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
-public class EnergyDispenserBlock extends Block {
+public class EnergyDispenserBlock extends Block implements IPipeConnect {
 	
 	private static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 	private static final VoxelShape SHAPE_N = Stream.of(
@@ -143,9 +147,9 @@ public class EnergyDispenserBlock extends Block {
 		if (!worldIn.isRemote) {
 			TileEntity te = worldIn.getTileEntity(pos.down());
 			if(te != null) {
-				Direction bl = te.getBlockState().get(FACING);
+				if (te instanceof TileFluidTankBlock) {
+					Direction bl = te.getBlockState().get(FACING);
 	
-	            if (te instanceof TileFluidTankBlock) {
 	            	if(bl != state.get(FACING)) {
 	            		if(bl.getOpposite() != state.get(FACING)) {
 	            			worldIn.destroyBlock(pos, true);
@@ -237,6 +241,13 @@ public class EnergyDispenserBlock extends Block {
 	@Override
 	public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
 		return 0.6f;
+	}
+
+	@Override
+	public List<Direction> getConnectableSides(BlockState state) {
+		List<Direction> faces = new ArrayList<Direction>();
+		faces.add(Direction.UP);
+		return faces;
 	}
 
 }

@@ -32,7 +32,7 @@ public class TileEnergyMachineChargerBlock extends TileEntity implements ITickab
 	
 	private final LazyOptional<IEnergyStorage> holder = LazyOptional.of(() -> storage);
 	
-	private int ticks;
+	private int ticks = 0;
 
 	public TileEnergyMachineChargerBlock() {
 		super(RegistryHandler.ENERGYMACHINECHARGER_BLOCK_TILE.get());
@@ -41,7 +41,9 @@ public class TileEnergyMachineChargerBlock extends TileEntity implements ITickab
 	@Override
 	public void tick() {
 		if(!this.world.isRemote) {
+			this.energy = this.storage.getEnergyStored();
 			if(this.ticks >= 100) {
+				
 				if(this.sendEnergy == false) {
 					this.ticks = 0;
 					
@@ -111,14 +113,25 @@ public class TileEnergyMachineChargerBlock extends TileEntity implements ITickab
 				if(energyHandlerCap.isPresent()) {
 					IEnergyStorage energyHandler = energyHandlerCap.orElseThrow(IllegalStateException::new);
 					
-					if(energyHandler.getEnergyStored() >= 1000) {
-						energyHandler.extractEnergy(1000, false);
-						this.storage.receiveEnergy(1, false);
+					if(energyHandler.getEnergyStored() > 0) {
+						if(this.getEnergyFromStorage() < this.getMaxEnergyFromStorage()) {
+							energyHandler.extractEnergy(1, false);
+							this.storage.receiveEnergy(1, false);
+							this.sendEnergy = true;
+							this.markDirty();
+						}
 						this.sendEnergy = true;
-						this.markDirty();
+					} else {
+						this.sendEnergy = true;
 					}
+				} else {
+					this.sendEnergy = true;
 				}
+			} else {
+				this.sendEnergy = true;
 			}
+		} else {
+			this.sendEnergy = true;
 		}
 	}
 	
@@ -141,9 +154,18 @@ public class TileEnergyMachineChargerBlock extends TileEntity implements ITickab
 							this.markDirty();
 							tetosendenergy.markDirty();
 						}
+						this.sendEnergy = false;
+					} else {
+						this.sendEnergy = false;
 					}
+				} else {
+					this.sendEnergy = false;
 				}
+			} else {
+				this.sendEnergy = false;
 			}
+		} else {
+			this.sendEnergy = false;
 		}
 	}
 	
@@ -202,6 +224,11 @@ public class TileEnergyMachineChargerBlock extends TileEntity implements ITickab
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
       return new SUpdateTileEntityPacket(getPos(), 1, getUpdateTag());
+    }
+    
+    @Override
+    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+    	read(state, tag);
     }
 
     @Override
