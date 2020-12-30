@@ -1,6 +1,5 @@
 package com.tigres810.testmod.energy;
 
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.energy.EnergyStorage;
 
 public class CustomEnergy extends EnergyStorage {
@@ -18,6 +17,11 @@ public class CustomEnergy extends EnergyStorage {
     public CustomEnergy(int capacity, int maxReceive, int maxExtract)
     {
     	super(capacity, maxReceive, maxExtract, 0);
+    }
+    
+    public CustomEnergy(int capacity, int maxReceive, int maxExtract, int energy)
+    {
+    	super(capacity, maxReceive, maxExtract, energy);
     }
 
 	@Override
@@ -50,7 +54,8 @@ public class CustomEnergy extends EnergyStorage {
 		return super.canReceive();
 	}
 	
-	public void readFromNBT(CompoundNBT compound)
+	/*
+	public void read(CompoundNBT compound)
     {
     	this.energy = compound.getInt("Energy");
     	this.capacity = compound.getInt("Capacity");
@@ -58,7 +63,7 @@ public class CustomEnergy extends EnergyStorage {
     	this.maxExtract = compound.getInt("MaxExtract");
     }
     
-    public CompoundNBT writeToNBT(CompoundNBT compound)
+    public CompoundNBT write(CompoundNBT compound)
     {
     	compound.putInt("Energy", this.energy);
     	compound.putInt("Capacity", this.capacity);
@@ -66,5 +71,6 @@ public class CustomEnergy extends EnergyStorage {
     	compound.putInt("MaxExtract", this.maxExtract);
 		return compound;
     }
+    */
 
 }

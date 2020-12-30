@@ -23,7 +23,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 public class TileEnergyDispenserBlock extends TileEntity implements ITickableTileEntity {
-	private CustomEnergy storage = new CustomEnergy(5);
+	private CustomEnergy storage = new CustomEnergy(5, 1, 1);
 	public int energy = storage.getEnergyStored();
 	public Boolean sendEnergy = false;
 	
@@ -136,13 +136,6 @@ public class TileEnergyDispenserBlock extends TileEntity implements ITickableTil
 	}
 	
 	@Override
-	public void read(BlockState state, CompoundNBT nbt) {
-		super.read(state, nbt);
-		connectedto = new BlockPos(nbt.getInt("ConnectedToX"), nbt.getInt("ConnectedToY"), nbt.getInt("ConnectedToZ"));
-		this.storage = new CustomEnergy(nbt.getInt("Energy"));
-	}
-	
-	@Override
 	public CompoundNBT write(CompoundNBT compound) {
 		compound = super.write(compound);
 		compound.putInt("Energy", this.storage.getEnergyStored());
@@ -150,6 +143,14 @@ public class TileEnergyDispenserBlock extends TileEntity implements ITickableTil
 		compound.putInt("ConnectedToY", connectedto.getY());
 		compound.putInt("ConnectedToZ", connectedto.getZ());
 		return compound;
+	}
+	
+	@Override
+	public void read(BlockState state, CompoundNBT nbt) {
+		super.read(state, nbt);
+		connectedto = new BlockPos(nbt.getInt("ConnectedToX"), nbt.getInt("ConnectedToY"), nbt.getInt("ConnectedToZ"));
+		int t = nbt.getInt("Energy");
+		this.storage = new CustomEnergy(5, 1, 1, t);
 	}
 	
 	@Nonnull
@@ -161,11 +162,6 @@ public class TileEnergyDispenserBlock extends TileEntity implements ITickableTil
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
       return new SUpdateTileEntityPacket(getPos(), 1, getUpdateTag());
-    }
-    
-    @Override
-    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-    	read(state, tag);
     }
 
     @Override

@@ -26,7 +26,7 @@ import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public class TileEnergyMachineChargerBlock extends TileEntity implements ITickableTileEntity {
-	private CustomEnergy storage = new CustomEnergy(5);
+	private CustomEnergy storage = new CustomEnergy(5, 1, 1);
 	public int energy = storage.getEnergyStored();
 	public Boolean sendEnergy = false;
 	
@@ -203,16 +203,17 @@ public class TileEnergyMachineChargerBlock extends TileEntity implements ITickab
 	}
 	
 	@Override
-	public void read(BlockState state, CompoundNBT nbt) {
-		super.read(state, nbt);
-		this.storage = new CustomEnergy(nbt.getInt("Energy"));
-	}
-	
-	@Override
 	public CompoundNBT write(CompoundNBT compound) {
 		compound = super.write(compound);
 		compound.putInt("Energy", this.storage.getEnergyStored());
 		return compound;
+	}
+	
+	@Override
+	public void read(BlockState state, CompoundNBT nbt) {
+		super.read(state, nbt);
+		int t = nbt.getInt("Energy");
+		this.storage = new CustomEnergy(5, 1, 1, t);
 	}
 	
 	@Nonnull
@@ -224,11 +225,6 @@ public class TileEnergyMachineChargerBlock extends TileEntity implements ITickab
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
       return new SUpdateTileEntityPacket(getPos(), 1, getUpdateTag());
-    }
-    
-    @Override
-    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-    	read(state, tag);
     }
 
     @Override
