@@ -36,11 +36,12 @@ public class Test
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+    	//Ores
     	OreGeneration.registerOres();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-    	// Tile entity's
+    	//Tile entity's
     	ClientRegistry.bindTileEntityRenderer(RegistryHandler.FLUIDTANK_BLOCK_TILE.get(), RenderFluidTankBlock::new);
     	ClientRegistry.bindTileEntityRenderer(RegistryHandler.CAULDRON_BLOCK_TILE.get(), RenderCauldronBlock::new);
     	

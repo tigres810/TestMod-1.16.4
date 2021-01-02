@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tmod:flux_ore_block"
+          "name": "tmod:flux_ore"
         }
       ]
     }
