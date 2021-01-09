@@ -1,5 +1,7 @@
 package com.tigres810.testmod.util;
 
+import java.util.function.Supplier;
+
 import com.tigres810.testmod.Test;
 import com.tigres810.testmod.blocks.BlockFluxOre;
 import com.tigres810.testmod.blocks.BlockItemBase;
@@ -11,6 +13,7 @@ import com.tigres810.testmod.blocks.TestBlock;
 import com.tigres810.testmod.items.InformationTabletItem;
 import com.tigres810.testmod.items.ItemBase;
 import com.tigres810.testmod.items.MagicStickItem;
+import com.tigres810.testmod.items.MikuTellWorldMusicDiscItem;
 import com.tigres810.testmod.tileentitys.TileFluidTankBlock;
 
 import com.tigres810.testmod.tileentitys.TileCauldronBlock;
@@ -28,6 +31,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
+import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.RegistryObject;
@@ -38,16 +43,22 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class RegistryHandler {
 
 	// Registers
-	public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Test.MOD_ID);
-	public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Test.MOD_ID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Test.MOD_ID);
+	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Test.MOD_ID);
 	public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Test.MOD_ID);
 	public static final DeferredRegister<TileEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Test.MOD_ID);
 	public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Test.MOD_ID);
+	public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Test.MOD_ID);
 	
 	// Resource Locations
+	// Fluids
 	public static final ResourceLocation FLUX_FLUID_ST = new ResourceLocation(Test.MOD_ID, "blocks/flux_fluid_still");
 	public static final ResourceLocation FLUX_FLUID_FL = new ResourceLocation(Test.MOD_ID, "blocks/flux_fluid_flow");
-	public static final ResourceLocation FLUX_FLUID_OV = new ResourceLocation(Test.MOD_ID, "block/flux_fluid_overlay");
+	public static final ResourceLocation FLUX_FLUID_OV = new ResourceLocation(Test.MOD_ID, "blocks/flux_fluid_overlay");
+	// Sounds
+	public static final ResourceLocation MIKU_TELL_WORLD_RL = new ResourceLocation(Test.MOD_ID, "item.miku_tell_world_sound");
+	// Discs
+	public static final ResourceLocation MIKU_TELL_WORLD_D = new ResourceLocation(Test.MOD_ID, "item.miku_tell_world_disc");
 	
 	public static void init() {
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -55,7 +66,13 @@ public class RegistryHandler {
 		BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
 		CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+		SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
+	
+	// Sounds
+	public static final Supplier<SoundEvent> MIKU_TELL_WORLD = () -> new SoundEvent(MIKU_TELL_WORLD_RL);
+	public static final Lazy<SoundEvent> MIKU_TELL_WORLD_DISC_LAZY = Lazy.of(() -> new SoundEvent(MIKU_TELL_WORLD_D));
+	public static final RegistryObject<SoundEvent> MIKU_TELL_WORLD_DISC = SOUNDS.register("item.miku_tell_world_disc.disc", MIKU_TELL_WORLD_DISC_LAZY);
 	
 	// Items
 	public static final RegistryObject<Item> TESTITEM = ITEMS.register("testitem", () -> new ItemBase(new Item.Properties().group(Test.TAB)));
@@ -99,6 +116,9 @@ public class RegistryHandler {
 	
 	// Mineral Blocks Items
 	public static final RegistryObject<Item> FLUX_ORE_BLOCK_ITEM = ITEMS.register("flux_ore", () -> new BlockItemBase(FLUX_ORE_BLOCK.get(), new Item.Properties().group(Test.TAB)));
+	
+	// Discs Items
+	public static final RegistryObject<Item> MIKU_TELL_WORLD_DISC_ITEM = ITEMS.register("miku_tell_world_disc", () -> new MikuTellWorldMusicDiscItem(1, MIKU_TELL_WORLD, new Item.Properties().maxStackSize(1).group(Test.TAB)));
 	
 	// Fluids
 	public static final RegistryObject<FlowingFluid> FLUX_FLUID = FLUIDS.register("flux_fluid_still", () -> new ForgeFlowingFluid.Source(RegistryHandler.FLUX_FLUID_PROPERTIES));

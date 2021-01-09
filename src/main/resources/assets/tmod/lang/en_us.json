@@ -27,5 +27,10 @@
 	
 	//Gui
 	"gui.title": "Guide",
-	"gui.leftpage0": "Super test, more bigger than the other test."
+	"gui.leftpage0": "Super test, more bigger than the other test.",
+	
+	//Music Disc
+	"item.tmod.miku_tell_world_disc": "Music Disc",
+	"item.tmod.miku_tell_world_disc.desc": "Hatsune Miku - Tell Your World",
+	"item.miku_tell_world_disc.sub": "Miku Disc"
 }

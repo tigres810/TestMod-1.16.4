@@ -7,7 +7,7 @@
 		"4": "tmod:blocks/texture3",
 		"5": "minecraft:block/oak_log_top",
 		"6": "minecraft:block/oak_log",
-		"particle": "minecraft:block/concrete_powder_gray"
+		"particle": "minecraft:block/gray_concrete_powder"
 	},
 	"elements": [
 		{

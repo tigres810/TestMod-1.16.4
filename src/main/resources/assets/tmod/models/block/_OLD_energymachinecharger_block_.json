@@ -4,8 +4,8 @@
 	"textures": {
 		"1": "tmod:blocks/texture1",
 		"3": "tmod:blocks/texture2",
-		"4": "tmod:block/texture3",
-		"particle": "tmod:blocks/concrete_powder_gray"
+		"4": "tmod:blocks/texture3",
+		"particle": "minecraft:block/concrete_powder_gray"
 	},
 	"elements": [
 		{

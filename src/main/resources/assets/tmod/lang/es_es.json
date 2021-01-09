@@ -30,5 +30,10 @@
 	"gui.leftpage0": "Super test,",
 	"gui.leftpage0.1": "mas grande",
 	"gui.leftpage0.2": "que el",
-	"gui.leftpage0.3": "anterior test."
+	"gui.leftpage0.3": "anterior test.",
+	
+	//Music Disc
+	"item.tmod.miku_tell_world_disc": "Disco de musica",
+	"item.tmod.miku_tell_world_disc.desc": "Hatsune Miku - Dile a tu mundo",
+	"item.miku_tell_world_disc.sub": "Miku Disc"
 }

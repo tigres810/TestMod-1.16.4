@@ -25,7 +25,6 @@ credits="Thanks for this example mod goes to Java" #optional
 authors="tigres810" #optional
 
 description='''
-
 '''
 
 [[dependencies.examplemod]] #optional
